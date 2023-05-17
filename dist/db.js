@@ -8,18 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import pgPromise from "pg-promise";
+import dotenv from "dotenv";
+dotenv.config();
 export const db = pgPromise()({
     host: "127.0.0.1",
     port: 5432,
-    database: "testdb",
-    user: "pgadmin",
-    password: "secure_password",
+    database: process.env.PG_DATABASE,
+    user: process.env.PG_USER,
+    password: process.env.PG_PASSWORD,
 });
 export const setupDb = () => __awaiter(void 0, void 0, void 0, function* () {
     yield db.none(`
         DROP TABLE IF EXISTS planets;
 
-        CREATE TABLE planets(   
+        CREATE TABLE IF NOT EXISTS  planets(   
         id SERIAL NOT NULL PRIMARY KEY,
         name TEXT NOT NULL
         );`);
