@@ -23,10 +23,12 @@ export const setupDb = () => __awaiter(void 0, void 0, void 0, function* () {
 
         CREATE TABLE IF NOT EXISTS  planets(   
         id SERIAL NOT NULL PRIMARY KEY,
-        name TEXT NOT NULL
+        name TEXT NOT NULL,
+        image TEXT
         );`);
     yield db.none(`INSERT INTO planets (name) VALUES ('Mercury');`);
     yield db.none(`INSERT INTO planets (name) VALUES ('Earth');`);
+    yield db.none(`INSERT INTO planets (name) VALUES ('Mars');`);
     const planets = yield db.many(`SELECT * FROM planets;`);
     console.log(planets);
 });

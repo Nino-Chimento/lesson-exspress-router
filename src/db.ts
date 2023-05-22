@@ -18,11 +18,13 @@ export const setupDb = async () => {
 
         CREATE TABLE IF NOT EXISTS  planets(   
         id SERIAL NOT NULL PRIMARY KEY,
-        name TEXT NOT NULL
+        name TEXT NOT NULL,
+        image TEXT
         );`
     )
     await db.none(`INSERT INTO planets (name) VALUES ('Mercury');`)
     await db.none(`INSERT INTO planets (name) VALUES ('Earth');`)
+    await db.none(`INSERT INTO planets (name) VALUES ('Mars');`)
 
     const planets = await db.many(`SELECT * FROM planets;`)
     console.log(planets);

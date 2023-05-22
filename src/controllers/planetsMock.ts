@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { planetSchema } from "../validation.js";
-import { log } from "console";
+import {  planetSchema } from "../validation.js";
+
 
 let planets = [
     { id: 1, name: 'Mercury' },
@@ -44,6 +44,8 @@ let planets = [
   );
   res.status(200).json({ msg: 'The planet was updated', planets });
   }
+
+ 
 
 
   export  { getAllPlanets,getPlanetsById,deletePlanetById,createPlanet,modifyPlanetById }

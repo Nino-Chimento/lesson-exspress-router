@@ -8,3 +8,7 @@ export const planetSchema = Joi.object({
 export const planetNameSchema = Joi.object({
     name: Joi.string().required().max(10),
 });
+
+export const pathnameSchema = Joi.object({
+    pathname : Joi.string().required(),
+})
