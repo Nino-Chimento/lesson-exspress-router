@@ -25,10 +25,20 @@ export const setupDb = () => __awaiter(void 0, void 0, void 0, function* () {
         id SERIAL NOT NULL PRIMARY KEY,
         name TEXT NOT NULL,
         image TEXT
-        );`);
+        );
+        DROP TABLE IF EXISTS users;
+        CREATE TABLE IF NOT EXISTS users(
+            id SERIAL NOT NULL PRIMARY KEY,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL,
+            token TEXT,
+            role TEXT DEFAULT 'user'
+        );
+        `);
     yield db.none(`INSERT INTO planets (name) VALUES ('Mercury');`);
     yield db.none(`INSERT INTO planets (name) VALUES ('Earth');`);
     yield db.none(`INSERT INTO planets (name) VALUES ('Mars');`);
-    const planets = yield db.many(`SELECT * FROM planets;`);
-    console.log(planets);
+    yield db.none(`INSERT INTO users (username,password) VALUES ('dummy','dummy');`);
+    const users = yield db.many(`SELECT * FROM users;`);
+    // console.log(users);
 });

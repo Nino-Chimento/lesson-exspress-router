@@ -20,13 +20,22 @@ export const setupDb = async () => {
         id SERIAL NOT NULL PRIMARY KEY,
         name TEXT NOT NULL,
         image TEXT
-        );`
+        );
+        DROP TABLE IF EXISTS users;
+        CREATE TABLE IF NOT EXISTS users(
+            id SERIAL NOT NULL PRIMARY KEY,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL,
+            token TEXT,
+            role TEXT DEFAULT 'user'
+        );
+        `
     )
     await db.none(`INSERT INTO planets (name) VALUES ('Mercury');`)
     await db.none(`INSERT INTO planets (name) VALUES ('Earth');`)
     await db.none(`INSERT INTO planets (name) VALUES ('Mars');`)
-
-    const planets = await db.many(`SELECT * FROM planets;`)
-    console.log(planets);
+    await db.none(`INSERT INTO users (username,password) VALUES ('dummy','dummy');`)
+    const users = await db.many(`SELECT * FROM users;`)
+   // console.log(users);
             
 };

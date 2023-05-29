@@ -31,7 +31,7 @@ import { pathnameSchema } from "../validation.js";
 
   const updatePlanetById = async (req:Request,res:Response) => {
     const {id,name,image} = req.body;
-    console.log(image);
+
     
     const planet = await db.oneOrNone(`UPDATE planets SET name=$1,image=$3  WHERE id=$2 RETURNING *;`,[name,Number(id),image])
     res.status(200).json(planet);
@@ -44,7 +44,7 @@ import { pathnameSchema } from "../validation.js";
   }
 
   const createImage = async (req:Request, res:Response) => {
-    console.log(req.file);
+   
     const { id } = req.params;
     const filePath = req.file?.path;
     const validation = pathnameSchema.validate({ pathname: filePath });
@@ -54,7 +54,7 @@ import { pathnameSchema } from "../validation.js";
     }
     db.none('UPDATE planets SET image = $1 WHERE id = $2', [filePath, id]);
     const planets = await db.oneOrNone('SELECT * FROM planets WHERE id = $1', [id]);
-    console.log(planets);
+   
     
     res.status(201).json({ msg: 'The image was saved' });
   }

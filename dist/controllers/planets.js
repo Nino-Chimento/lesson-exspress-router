@@ -33,7 +33,6 @@ const createPlanet = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 const updatePlanetById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id, name, image } = req.body;
-    console.log(image);
     const planet = yield db.oneOrNone(`UPDATE planets SET name=$1,image=$3  WHERE id=$2 RETURNING *;`, [name, Number(id), image]);
     res.status(200).json(planet);
 });
@@ -44,7 +43,6 @@ const deletePlanetById = (req, res) => __awaiter(void 0, void 0, void 0, functio
 });
 const createImage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    console.log(req.file);
     const { id } = req.params;
     const filePath = (_a = req.file) === null || _a === void 0 ? void 0 : _a.path;
     const validation = pathnameSchema.validate({ pathname: filePath });
@@ -53,7 +51,6 @@ const createImage = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
     db.none('UPDATE planets SET image = $1 WHERE id = $2', [filePath, id]);
     const planets = yield db.oneOrNone('SELECT * FROM planets WHERE id = $1', [id]);
-    console.log(planets);
     res.status(201).json({ msg: 'The image was saved' });
 });
 export { getAllPlanets, getPlanetById, updatePlanetById, createPlanet, deletePlanetById, createImage };
